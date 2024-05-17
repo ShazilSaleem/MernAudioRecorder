@@ -9,16 +9,13 @@ const VideoRecorder = () => {
   const [recorder, setRecorder] = useState(null);
   const [timer, setTimer] = useState(0);
   const timerRef = useRef(null);
-
   const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true }); // Include audio:true
     const videoRecorder = new RecordRTC(stream, {
       type: 'video',
-      mimeType: 'video/webm', // Change to preferred video format
-      video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-      },
+      mimeType: 'video/mp4', // Specify the mimeType as video/mp4
+      recorderType: RecordRTC.StereoAudioRecorder, // You can adjust this according to your requirements
+      desiredSampRate: 16000,
     });
     videoRecorder.startRecording();
     setRecorder(videoRecorder);
@@ -50,14 +47,13 @@ const VideoRecorder = () => {
       setRecorder(null);
     });
   };
-
   return (
     <div className="flex flex-col items-center justify-center h-[90vh]">
       <Typography variant="h4" className="text-white">VIDEO RECORDING</Typography>
-      <Button variant="contained" className='mt-4' onClick={isRecording ? stopRecording : startRecording}>
+      <Button variant="contained" className="mt-4" onClick={isRecording ? stopRecording : startRecording}>
         {isRecording ? <Stop style={{ color: 'red' }} /> : 'Start Recording'}
       </Button>
-      {isRecording && <Typography variant="body1" className="mt-4 text-white">Recording Time: {timer} seconds</Typography>}
+      {isRecording && <Typography variant="body1" className="text-white mt-4">Recording Time: {timer} seconds</Typography>}
     </div>
   );
 };

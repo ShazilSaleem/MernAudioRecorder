@@ -1,12 +1,19 @@
-import React from 'react';
-import AudioRecorder from './Pages/AudioRecorder';
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AudioRecorder from "./Pages/AudioRecorder";
+import MainPage from "./Pages/MainPage";
+import VideoRecorder from "./Pages/VideoRecorder";
 
 const App = () => {
   return (
     <div className="App">
-      <h1>Audio Recorder</h1>
-      <AudioRecorder />
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/audio" element={<AudioRecorder />} />
+          <Route path="/video" element={<VideoRecorder />} />
+        </Routes>
+      </Router>
     </div>
   );
 };

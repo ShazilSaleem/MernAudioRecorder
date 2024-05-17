@@ -25,7 +25,7 @@ const AudioRecorder = () => {
       const formData = new FormData();
       formData.append('audio', blob, 'recording.mp3');
 
-      await axios.post('http://localhost:5000/upload', formData, {
+      await axios.post('https://c4a7-162-12-210-2.ngrok-free.app/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
